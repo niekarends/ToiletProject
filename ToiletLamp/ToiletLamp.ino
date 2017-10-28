@@ -30,7 +30,7 @@ int keyIndex = 0;            // your network key Index number (needed only for W
 
 const int redPin = 0;     // the number of the pushbutton pin
 const int greenPin = 1;
-const int bluePin = 1;
+const int bluePin = 2;
 
 int currentState = 0;         // variable for reading the pushbutton status
 int previousState = 0;
@@ -56,6 +56,9 @@ void setup() {
   pinMode(greenPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
 
+  digitalWrite(greenPin, HIGH);
+  digitalWrite(redPin, LOW);
+
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WiFi shield not present");
@@ -65,7 +68,7 @@ void setup() {
 }
 
 void connectToWiFi() {
-  WiFi.maxLowPowerMode();
+  //  WiFi.maxLowPowerMode();
   // attempt to connect to WiFi network:
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
@@ -94,11 +97,13 @@ String doGet() {
   char s[] = "";
   //Read the response
 
+  String response = "";
   while (client.connected()) {
     int i = 0;
+
     while (client.available()) {
       char c = client.read();
-      Serial.write(c);
+      response += String(c);
     }
   }
   if (!client.connected()) {
@@ -106,7 +111,7 @@ String doGet() {
     Serial.println("disconnecting from server.");
     client.stop();
   }
-  //  Serial.println("Response was [" + s + "]");
+  return response;
 }
 
 void loop() {
@@ -117,21 +122,32 @@ void loop() {
     connectToWiFi();
   }
 
-  //Check button1 state
-  doGet();
-  
+  //Check toilet state
+  String response = doGet();
+
+  if (response.indexOf("free") > 0) {
+    currentState = 0;
+  }
+  else {
+    currentState = 1;
+  }
+
   if (currentState != previousState) {
     previousState = currentState;
     if (currentState == 1) {
       Serial.println("Toilet 1 occupied");
+      digitalWrite(greenPin, LOW);
+      digitalWrite(redPin, HIGH);
       //      WiFi.end();
     } else {
       Serial.println("Toilet 1 free");
+      digitalWrite(greenPin, HIGH);
+      digitalWrite(redPin, LOW);
     }
   }
 
   //Only check once a second
-  delay(1000);
+  delay(3000);
 }
 
 
