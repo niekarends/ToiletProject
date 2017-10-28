@@ -150,6 +150,13 @@ void loop() {
   delay(3000);
 }
 
+void setColourRgb(unsigned int red, unsigned int green, unsigned int blue) {
+  analogWrite(redPin, red);
+  analogWrite(greenPin, green);
+  analogWrite(bluePin, blue);
+}
+
+
 
 void printWiFiStatus() {
   // print the SSID of the network you're attached to:
