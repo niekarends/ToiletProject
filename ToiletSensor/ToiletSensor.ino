@@ -54,8 +54,8 @@ void setup() {
   Serial.begin(9600);
   // initialize the LED pin as an output:
   // initialize the pushbutton pin as an input:
-  pinMode(button1Pin, INPUT);
-  pinMode(button2Pin, INPUT);
+  pinMode(button1Pin, INPUT_PULLUP);
+  pinMode(button2Pin, INPUT_PULLUP);
 
 //  while (!Serial) {
 //    ; // wait for serial port to connect. Needed for native USB port only
