@@ -163,7 +163,7 @@ void loop() {
   currentState1 = digitalRead(button1Pin);
   if (currentState1 != previousState1) {
     previousState1 = currentState1;
-    if (currentState1 == 1) {
+    if (currentState1 == 0) {
       Serial.println("Button 1 High");
 //      WiFi.end();
       doPost("sensor1", "occupied");
