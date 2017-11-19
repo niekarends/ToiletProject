@@ -54,8 +54,9 @@ void setup() {
   Serial.begin(9600);
   // initialize the LED pin as an output:
   // initialize the pushbutton pin as an input:
-  pinMode(button1Pin, INPUT);
-  pinMode(button2Pin, INPUT);
+  pinMode(button1Pin, INPUT_PULLUP);
+  pinMode(button2Pin, INPUT_PULLUP);
+  pinMode(LED_BUILTIN, OUTPUT);
 
 //  while (!Serial) {
 //    ; // wait for serial port to connect. Needed for native USB port only
@@ -70,6 +71,7 @@ void setup() {
 }
 
 void connectToWiFi() {
+  digitalWrite(LED_BUILTIN, HIGH);
   WiFi.maxLowPowerMode();
   // attempt to connect to WiFi network:
   while (status != WL_CONNECTED) {
@@ -81,6 +83,7 @@ void connectToWiFi() {
     // wait 10 seconds for connection:
     delay(5000);
   }
+  digitalWrite(LED_BUILTIN, LOW);
   Serial.println("Connected to wifi");
   printWiFiStatus();
 }
@@ -173,7 +176,7 @@ void loop() {
   currentState2 = digitalRead(button2Pin);
   if (currentState2 != previousState2) {
     previousState2 = currentState2;
-    if (currentState2 == 1) {
+    if (currentState2 == 0) {
       Serial.println("Button 2 High");
       doPost("sensor2", "occupied");
     } else {

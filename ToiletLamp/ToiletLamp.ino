@@ -54,10 +54,12 @@ void setup() {
   // initialize the pushbutton pin as an input:
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
 
   digitalWrite(greenPin, HIGH);
-  digitalWrite(redPin, LOW);
+  digitalWrite(redPin, HIGH);
+  digitalWrite(bluePin, HIGH);
+
 
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
@@ -118,8 +120,14 @@ void loop() {
   //Check if still connected to WIFI
   status = WiFi.status();
   if (status != WL_CONNECTED) {
-    Serial.println("Lost Wifi connection");
+    Serial.println("Lost Wifi connection"); \
+    digitalWrite(redPin, LOW);
+    digitalWrite(greenPin, LOW);
+    digitalWrite(bluePin, HIGH);
     connectToWiFi();
+    digitalWrite(redPin, LOW);
+    digitalWrite(greenPin, HIGH);
+    digitalWrite(bluePin, LOW);
   }
 
   //Check toilet state
@@ -136,6 +144,7 @@ void loop() {
     previousState = currentState;
     if (currentState == 1) {
       Serial.println("Toilet 1 occupied");
+      digitalWrite(bluePin, LOW);
       digitalWrite(greenPin, LOW);
       digitalWrite(redPin, HIGH);
       //      WiFi.end();
@@ -143,6 +152,7 @@ void loop() {
       Serial.println("Toilet 1 free");
       digitalWrite(greenPin, HIGH);
       digitalWrite(redPin, LOW);
+      digitalWrite(bluePin, LOW);
     }
   }
 

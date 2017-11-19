@@ -1,3 +1,3 @@
-#define SECRET_SSID "It hurts when IP 2.4Ghz"
-#define SECRET_PASS "appelsap1"
+#define SECRET_SSID "Onetrail-Guest"
+#define SECRET_PASS "onetrailfree"
 
