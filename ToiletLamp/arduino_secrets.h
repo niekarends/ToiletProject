@@ -1,3 +1,3 @@
-#define SECRET_SSID "Onetrail-Guest"
-#define SECRET_PASS "onetrailfree"
+#define SECRET_SSID "networkname"
+#define SECRET_PASS "password"
 
