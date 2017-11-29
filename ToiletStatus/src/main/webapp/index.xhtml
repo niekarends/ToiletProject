@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <style type="text/css">
+            .red{
+                background-color: #FF0000;
+                color: #FFFFFF;
+            }
+            .green{
+                background-color: #2de810;
+                color: #FFFFFF;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <h:form id="form1" >
+            <p:poll interval="1" listener="#{StatusView.updateToiletList()}" update="form1" />
+            <h:panelGrid columns="1">
+                <h:panelGroup style="display:block; align-content: center">
+                    <p:dataTable id="toiletlist"  var="toilet" value="#{StatusView.toilets}" rowStyleClass="#{toilet.status eq true ? 'red' : 'green'}" style="width: 33%">
+                        <p:column headerText="Toilet" style="text-align:center">
+                            <h:outputText value="#{toilet.name}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
