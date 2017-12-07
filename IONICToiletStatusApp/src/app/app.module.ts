@@ -9,6 +9,8 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -17,6 +19,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+     HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

@@ -1,6 +1,12 @@
 {
-  "name": "MyIonicProject",
+  "name": "ToiletStatusApp",
   "app_id": "99318fc4",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {},
+  "proxies": [
+    {
+      "path": "/entities",
+      "proxyUrl": "http://185.170.7.129:1026/v2/entities"
+    }
+  ]
 }

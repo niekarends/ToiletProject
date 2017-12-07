@@ -1,20 +1,35 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Status</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Status</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-lines>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon color="" name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+	<ion-list no-lines>
+		<button [color]="item.status.value === 'occupied' ? 'red' : 'green'" ion-item *ngFor="let item of items" >
+			<!-- (click)="itemTapped($event, item)" -->
+			<ion-icon [name]="item.status.value === 'occupied' ? 'close-circle': 'checkmark-circle'"  item-left></ion-icon>
+			{{item.name.value}}
+			<div class="item-note" item-right>
+				{{item.status.value}}
+			</div>
+		</button>
+	</ion-list>
+
+	<ion-fab right bottom>
+		<button ion-fab color="dark" (click)="doRefresh($event)"><ion-icon color='light' name="refresh"></ion-icon></button>
+	</ion-fab>
+
 </ion-content>
